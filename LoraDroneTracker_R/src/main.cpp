@@ -34,7 +34,7 @@ void setup() {
   Serial.begin(115200);
   
   #ifdef BT_Output
-  SerialBT.begin("ESP32test"); //Bluetooth device name
+  SerialBT.begin("LoraDroneTracker"); //Bluetooth device name
   #endif
 
   while (!Serial);
@@ -73,7 +73,7 @@ void loop() {
 
 void PrintMsg(const String& Msg){
 #ifdef Serial_Output
-Serial.print(Msg);
+  Serial.print(Msg);
 #endif
 
 #ifdef BT_Output
@@ -83,7 +83,7 @@ Serial.print(Msg);
 
 void PrintMsgln(const String& Msg){
 #ifdef Serial_Output
-Serial.println(Msg);
+  Serial.println(Msg);
 #endif
 
 #ifdef BT_Output

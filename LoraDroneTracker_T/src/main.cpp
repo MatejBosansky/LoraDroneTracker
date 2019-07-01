@@ -23,7 +23,7 @@
 //Transmitter specific
 #define TxPower 14 //2-20, higher better strenght, higher consuption
 #define GPS_Baud 9600 //most of GPS modules have 9600
-#define StartDelay 1 //in s, with this, you can start transmit location after specific period of time from start. 
+#define StartDelay 1 //in s, with this you can start transmit location after specific period of time from start
 #define TransmitInterval 10 //Interval in s between every transmition of location 
 
 
@@ -41,7 +41,8 @@ void setup() {
   Serial2.begin(GPS_Baud, SERIAL_8N1, HW_UART_RX, HW_UART_TX);
   
   UBLOX_GPS_Shutdown();
-  esp_sleep_enable_timer_wakeup(StartDelay*1000000);
+
+    esp_sleep_enable_timer_wakeup(StartDelay*1000000);
     
   Serial.println("Entering sleep mode for " + String(StartDelay) + String(" seconds") );
   delay(1000);
@@ -113,19 +114,14 @@ void GenerateMessage()
   memset(LocationMessage, 0, sizeof(LocationMessage));
 
   Serial.print(F("Location: ")); 
-
-
   char Lat[10],Lng[10] ;
+  if (gps.location.isValid())  {
 
-
-  if (gps.location.isValid())
-  {
-
-  dtostrf(gps.location.lat(),4,6,Lat);
-  dtostrf(gps.location.lng(),4,6,Lng);
-  strcat(LocationMessage,Lat);
-  strcat(LocationMessage,",");
-  strcat(LocationMessage,Lng); 
+    dtostrf(gps.location.lat(),4,6,Lat);
+    dtostrf(gps.location.lng(),4,6,Lng);
+    strcat(LocationMessage,Lat);
+    strcat(LocationMessage,",");
+    strcat(LocationMessage,Lng); 
     Serial.print(gps.location.lat());
     Serial.print(F(","));
     Serial.print(gps.location.lng());
@@ -169,8 +165,6 @@ void GenerateMessage()
   {
     Serial.print(F("INVALID"));
   }
-
-  
   Serial.println();
   Serial.print("Message");
   Serial.println(LocationMessage);  
