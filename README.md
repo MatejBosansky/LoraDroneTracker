@@ -1,14 +1,14 @@
 # LoraDroneTracker
 GPS tracker (not only)for drone using LoRa communication. 
 Repository consists from 2 PlatformIO projects: `LoraDroneTracker_T` - for trasnceiver and `LoraDroneTracker_R` for receiver board.
-Check [this figure](https://github.com/MatejBosansky/LoraDroneTracker/tree/master/Docs/LoraDroneTracker_vis.png) to get quick overview how it works and what all you need.
+Check [this figure](https://github.com/MatejBosansky/LoraDroneTracker/tree/master/Docs/LoraDroneTracker_vis.png) to get quick overview how it works and what do you need.
 
 
 ## Features
 - No display is needed. This project uses serial communication with smartphone to get location data. You will recieve direct link for google maps.
 - Unlike the GSM based GPS tracking devices, you don't need to use SIM card and you don't need to rely on signal of GSM operator.
-- Possible to hibernate controler for specific ammount of time from beginning of flight - for example transciever starts to working after 17 minutes from start. 
-- Basic and easy to understand project using PlatformIO. Good base point for your further modifications.
+- Possible to hibernate controler for specific ammount of time from beginning of flight - for example transceiver starts working after 17 minutes from start. 
+- Basic, easy to understand and well commented project using PlatformIO. Good base point for your further modifications.
 
 ## Hardware
 Additionally to soldering iron you will need:
@@ -29,7 +29,16 @@ OR
 - OTG cable and installed [Serial USB Terminal](https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&hl=en) app.
 
 ## Notes
-- For most of TTGO and their cloned boards you can charge LiPO battery through the board.
+- For most of TTGO and cloned boards you can charge LiPo battery through the board.
 - Most of GPS modules are not able to lock position when are used indoor, you will need to test it outside.
-- Lora signal strength very depends on antenna, quality of board and used LoRa communication settings. Check [some guides](https://medium.com/home-wireless/testing-lora-radios-with-the-limesdr-mini-part-2-37fa481217ff) how to configure LoRa communiction devices.
-- For receiver you can use larger antenna to get better range results. With stock antennas I was able to receive not corrupted messages from 1km distance.
+- For receiver you can use larger antenna to get better range results. With stock antennas I was able to receive not corrupted messages from 1.5km distance.
+
+Lora signal strength very depends on:
+- antenna size, quality and position
+- obstacles in environment
+- quality of board
+- used LoRa communication settings. Check [some guides](https://medium.com/home-wireless/testing-lora-radios-with-the-limesdr-mini-part-2-37fa481217ff) how to configure LoRa communiction devices.
+- Based on my measurements, power consuption of intensive transmition is around 120 mAh. In sleep mode is calculated power consuption 8 mAh.
+
+## Credits
+[LoRaTracker project](https://github.com/LoRaTracker/GPSTutorial)

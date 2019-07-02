@@ -15,15 +15,20 @@
 #define HW_UART_TX 17 //GPS RX goes to ESP32s TX
 
 //Lora Configuration, keep same settings for both projects:
-#define BAND 868E6 // for NA 915E6 
-#define SpreadFactor 12 //7-12 higher - better range, lower speed
-#define BandWidth 41700 //oposite as Spread factor, available in kHz: 7.8 10.4 15.6 20.8 31.2 41.7 62.5 125 250 500, be careful with lowest value, it has only 19bps speed
-#define CodingRate 8 //5-8 higher - more transmition time but more stable message validity
+#define BAND 868E6 // NA - 915E6 / EU - 868E6
+#define SpreadFactor 12 //7-12 higher - better range, lower speed 
+#define CodingRate 8 //5-8 higher - more transmition time but less corrupted messages
 #define SyncWord 42 //0-255 - something like private channel to not interrupt other lora devices
+#define BandWidth 125000 //oposite as Spread factor, 
+                         //available in kHz: 7.8 10.4 15.6 20.8 31.2 41.7 62.5 125 250 500, 
+                         //be careful with lowest value, it has only 19bps speed
+                         //I got issues with quality of signal with frequencies below 125 khz
+
+
 //Transmitter specific
-#define TxPower 14 //2-20, higher better strenght, higher consuption
+#define TxPower 14 //2-20, higher better strenght, higher consuption. More here https://github.com/sandeepmistry/arduino-LoRa/blob/master/API.md#user-content-radio-parameters
 #define GPS_Baud 9600 //most of GPS modules have 9600
-#define StartDelay 1 //in s, with this you can start transmit location after specific period of time from start
+#define StartDelay 1 //in s, with this you can start transmit location after specific period of time from start. Until that time everything will sleep and consuption will be low
 #define TransmitInterval 10 //Interval in s between every transmition of location 
 
 
@@ -39,11 +44,11 @@ TinyGPSPlus gps;
 void setup() {
   Serial.begin(115200);
   Serial2.begin(GPS_Baud, SERIAL_8N1, HW_UART_RX, HW_UART_TX);
-  
+  delay(1000);
   UBLOX_GPS_Shutdown();
-
-    esp_sleep_enable_timer_wakeup(StartDelay*1000000);
-    
+  delay(100);
+  esp_sleep_enable_timer_wakeup(StartDelay*1000000);
+  delay(100);  
   Serial.println("Entering sleep mode for " + String(StartDelay) + String(" seconds") );
   delay(1000);
   esp_light_sleep_start();
@@ -61,11 +66,11 @@ void setup() {
     while (1);
   }
 
-LoRa.setSpreadingFactor(SpreadFactor); //7-12 highest - better range, lower speed
+LoRa.setSpreadingFactor(SpreadFactor);
 LoRa.setSignalBandwidth(BandWidth);
 LoRa.setCodingRate4(CodingRate);
 //some boards has different pin
-//LoRa.setTxPower(TxPower,PA_OUTPUT_PA_BOOST_PIN); //for me this causes better signal strength but received corrupt messages
+//LoRa.setTxPower(TxPower,PA_OUTPUT_PA_BOOST_PIN); //for me this causes better signal strength but received corrupted messages
 LoRa.setTxPower(TxPower, PA_OUTPUT_RFO_PIN);
 LoRa.setSyncWord(SyncWord);
 }
@@ -86,23 +91,13 @@ void loop() {
         LoRa.endPacket();
 
         counter += 1;
-
     }
-
   if (millis() > 5000 && gps.charsProcessed() < 10)
   {
     Serial.println(F("No GPS detected: check wiring or serial definition."));
     while(true);
-    
   }
-
-
-
-  
-
-  
   counter++;
-
   delay(5000); 
 }
 

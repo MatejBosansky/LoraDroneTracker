@@ -18,10 +18,13 @@ BluetoothSerial SerialBT;
 
 //Lora Configuration, keep same settings for both projects:
 #define BAND 868E6 // NA - 915E6 / EU - 868E6
-#define SpreadFactor 12 //7-12 higher - better range, lower speed
-#define BandWidth 41700 //oposite as Spread factor, available in kHz: 7.8 10.4 15.6 20.8 31.2 41.7 62.5 125 250 500, be careful with lowest value, it has only 19bps speed
+#define SpreadFactor 12 //7-12 higher - better range, lower speed 
 #define CodingRate 8 //5-8 higher - more transmition time but less corrupted messages
 #define SyncWord 42 //0-255 - something like private channel to not interrupt other lora devices
+#define BandWidth 125000 //oposite as Spread factor, 
+                         //available in kHz: 7.8 10.4 15.6 20.8 31.2 41.7 62.5 125 250 500, 
+                         //be careful with lowest value, it has only 19bps speed
+                         //I got issues with quality of signal with frequencies below 125 khz
 
 #define Serial_Output
 #define BT_Output //comment line if you dont want use Bluetooth
