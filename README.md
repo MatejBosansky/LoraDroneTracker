@@ -24,8 +24,8 @@ Device attached to drone.
 - [ESP32 board](http://s.click.aliexpress.com/e/QBwIOJm) with LoRa Module supported by [this library](https://github.com/sandeepmistry/arduino-LoRa) +antenna. Every region is using [specific frequency for LoRa communication](http://www.3glteinfo.com/lora/lorawan-frequency-bands/), buy board with correct frequency band.
 - Smartphone - tested with Android
 
-- Powerbank and installed [Serial Bluetooth Terminal](https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal&hl=en) app.
-OR
+- Powerbank and installed [Serial Bluetooth Terminal](https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal&hl=en) app.  
+- OR
 - OTG cable and installed [Serial USB Terminal](https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&hl=en) app.
 
 ## Notes
@@ -33,12 +33,12 @@ OR
 - Most of GPS modules are not able to lock position when are used indoor, you will need to test it outside.
 - For receiver you can use larger antenna to get better range results. With stock antennas I was able to receive not corrupted messages from 1.5km distance.
 
-Lora signal strength very depends on:
-- antenna size, quality and position
-- obstacles in environment
-- quality of board
-- used LoRa communication settings. Check [some guides](https://medium.com/home-wireless/testing-lora-radios-with-the-limesdr-mini-part-2-37fa481217ff) how to configure LoRa communiction devices.
-- Based on my measurements, power consuption of intensive transmition is around 120 mAh. In sleep mode is calculated power consuption 8 mAh.
+Lora signal strength depends on:
+- Antennas size, quality and position
+- Obstacles in environment
+- Quality of board
+- Used LoRa communication settings. Check [some guides](https://medium.com/home-wireless/testing-lora-radios-with-the-limesdr-mini-part-2-37fa481217ff) how to configure LoRa communication devices.
+- Based on my measurements, power consuption of intensive transmission is around 120 mAh. In sleep mode is calculated power consuption 8 mAh.
 
 ## Credits
 [LoRaTracker project](https://github.com/LoRaTracker/GPSTutorial)
